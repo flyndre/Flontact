@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using flontact.Models;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,19 +30,24 @@ namespace flontact.ViewModels
             get => _UnformattedContact;
             set { _UnformattedContact = value; OnPropertyChanged(nameof(UnformattedContact)); }
         }
-        ObservableCollection<string> _FormatedContact = new(new []{"hi","hello","Hallo"});
-        public ObservableCollection<string> FormatedContact
+        ObservableCollection<ContactPart> _FormatedContact = new();
+        public ObservableCollection<ContactPart> FormatedContact
         {
             get => _FormatedContact;
             set { _FormatedContact=value; OnPropertyChanged(nameof(FormatedContact));}
         }
         private RelayCommand? _UnformattedEnterCommand;
         public ICommand UnformattedEnterCommand => _UnformattedEnterCommand ??= new RelayCommand(OnUnfomarredEnter);
+        public Array ContactPartTags => Enum.GetValues(typeof(ContactPartTag));
 
 
         private void OnUnfomarredEnter()
         {
-            FormatedContact.Add(UnformattedContact);
+            FormatedContact.Clear();
+            new List<string>(UnformattedContact.Split(" ")).ForEach(contact =>
+            {
+                FormatedContact.Add(new(contact, ContactPartTag.Name));
+            });
             OnPropertyChanged(nameof(FormatedContact));
         }
     }

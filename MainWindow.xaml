@@ -19,9 +19,8 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Label>Part:</Label>
-                        <TextBlock Text="{Binding}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <ComboBox>
-                            <ComboBoxItem></ComboBoxItem>
+                        <TextBlock Text="{Binding Path=Text}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.ContactPartTags}" SelectedItem="{Binding Path=Tag}">
                         </ComboBox>
                     </StackPanel>
                 </DataTemplate>
