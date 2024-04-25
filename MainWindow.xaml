@@ -3,16 +3,29 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm ="clr-namespace:flontact.ViewModels"
         xmlns:local="clr-namespace:flontact"
         mc:Ignorable="d"
-        Title="Flontact" Height="450" Width="800">
+        Title="{Binding Path=WindowTitle}" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
     <StackPanel>
-        <StackPanel>
-            <TextBlock>Contact 1</TextBlock>
-            <TextBlock>Contact 2</TextBlock>
-            <TextBlock>Contact 3</TextBlock>
-            <TextBlock>Contact 4</TextBlock>
-        </StackPanel>
-        <Button>Add Contact</Button>
+        <TextBox Text="{Binding Path=UnformattedContact}" />
+        <Button Command="{Binding Path=UnformattedEnterCommand}">Add Contact</Button>
+        <TextBlock Text="{Binding Path=FormatedContact}"/>
+        <ListView ItemsSource="{Binding Path=FormatedContact}" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Part:</Label>
+                        <TextBlock Text="{Binding}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <ComboBox>
+                            <ComboBoxItem></ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </StackPanel>
 </Window>

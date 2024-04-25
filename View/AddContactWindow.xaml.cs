@@ -18,7 +18,7 @@ namespace flontact.View
     /// <summary>
     /// Interaction logic for AddContactWindow.xaml
     /// </summary>
-    public partial class AddContactWindow : Page
+    public partial class AddContactWindow : Window
     {
         public AddContactWindow()
         {
