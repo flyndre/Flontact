@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:flontact"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button Height="20" Width="100">Hello  World</Button>
-    </Grid>
+        Title="Flontact" Height="450" Width="800">
+    <StackPanel>
+        <StackPanel>
+            <TextBlock>Contact 1</TextBlock>
+            <TextBlock>Contact 2</TextBlock>
+            <TextBlock>Contact 3</TextBlock>
+            <TextBlock>Contact 4</TextBlock>
+        </StackPanel>
+        <Button>Add Contact</Button>
+    </StackPanel>
 </Window>
