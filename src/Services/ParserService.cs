@@ -11,8 +11,8 @@ namespace flontact.Services
 {
     public class ParserService : IParserService
     {
-        private readonly List<string> degrees = new() { "Dr.", "Prof." };
-        private readonly List<string> titles = new() {"Herr","Frau" };
+        private readonly List<string> degrees = ["Dr.", "Prof."];
+        private readonly Dictionary<string, Gender> titles = new() { { "Herr", Gender.Male }, { "Frau", Gender.Female } };
         public IList<ContactPart> Parse(string input)
         {
             var parts = (input.Split(' '));
@@ -29,13 +29,59 @@ namespace flontact.Services
             return returnList;
         }
 
+        public Contact ToContact(List<ContactPart> parts)
+        {
+            var contact = new Contact();
+            parts.ForEach(part =>
+            {
+                switch (part.Tag)
+                {
+                    case ContactPartTag.Degree:
+                        contact.Degrees.Add(part);
+                        break;
+                    case ContactPartTag.Firstname:
+                        contact.FirstNames.Add(part);
+                        break;
+                    case ContactPartTag.Name:
+                        contact.LastNames.Add(part);
+                        break;
+                    case ContactPartTag.Title:
+                        if (titles.TryGetValue(part.Text, out var gender))
+                        {
+                            contact.Gender = gender;
+                        }
+                        break;
+                }
+            });
+            return contact;
+
+        }
+
+        public string ToString(Contact contact)
+        {
+            var returnString = new StringBuilder();
+            switch (contact.Gender)
+            {
+                case Gender.Male:
+                    returnString.Append("Sehr geehrter Herr ");
+                    break;
+                case Gender.Female:
+                    returnString.Append("Sehr geehrte Frau");
+                    break;
+            }
+            contact.Degrees.ForEach(x=> returnString.Append(x.Text+" "));
+            contact.FirstNames.ForEach(x => returnString.Append(x.Text + " "));
+            contact.LastNames.ForEach(x => returnString.Append(x.Text + " "));
+            return returnString.ToString();
+        }
+
         private ContactPart ToContactPart(string stringPart)
         {
             if (degrees.IndexOf(stringPart) != -1)
             {
                 return new(stringPart, ContactPartTag.Degree);
             }
-            if(titles.IndexOf(stringPart) != -1) 
+            if(titles.ContainsKey(stringPart)) 
             {
                 return new(stringPart, ContactPartTag.Title); 
             }

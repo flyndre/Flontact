@@ -10,5 +10,9 @@ namespace flontact.Interfaces
     public interface IParserService
     {
         IList<ContactPart> Parse(string input);
+
+        string ToString(Contact contact);
+
+        Contact ToContact(List<ContactPart> parts);
     }
 }

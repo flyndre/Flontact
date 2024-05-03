@@ -9,7 +9,7 @@ namespace flontact.Models
     public class ContactPart
     {
         public string Text { get; set; } = string.Empty;
-        public ContactPartTag Tag { get; set; }
+        public ContactPartTag Tag { get; set; } = ContactPartTag.Firstname;
 
         public ContactPart(string text,ContactPartTag tag)
         {

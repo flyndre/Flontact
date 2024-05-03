@@ -9,8 +9,7 @@
         Title="{Binding Path=WindowTitle}" Height="450" Width="800">
     <StackPanel>
         <TextBox Text="{Binding Path=UnformattedContact}" />
-        <Button Command="{Binding Path=UnformattedEnterCommand}">Add Contact</Button>
-        <TextBlock Text="{Binding Path=FormatedContact}"/>
+        <Button Command="{Binding Path=UnformattedEnterCommand}">Parsen</Button>
         <ListView ItemsSource="{Binding Path=FormatedContact}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -23,5 +22,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button Command="{Binding Path=SaveEnterCommand}">Speichern</Button>
+        <TextBlock Text="{Binding Path=FormatedContactText}"/>
     </StackPanel>
 </Window>

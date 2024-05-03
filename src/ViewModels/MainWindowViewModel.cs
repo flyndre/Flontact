@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO.Packaging;
 using System.Linq;
 using System.Net.Security;
 using System.Text;
@@ -44,14 +45,34 @@ namespace flontact.ViewModels
             get => _FormatedContact;
             set { _FormatedContact=value; OnPropertyChanged(nameof(FormatedContact));}
         }
+        string _FormatedContactText = string.Empty;
+        public string FormatedContactText
+        {
+            get=> _FormatedContactText;
+            private set
+            {
+                _FormatedContactText = value;
+                OnPropertyChanged(nameof(FormatedContactText));
+            }
+        }
         private RelayCommand? _UnformattedEnterCommand;
         public ICommand UnformattedEnterCommand => _UnformattedEnterCommand ??= new RelayCommand(OnUnfomarredEnter);
+        private RelayCommand? _SaveEnterCommand;
+        public ICommand SaveEnterCommand => _SaveEnterCommand ??= new RelayCommand(OnSaveEnter);
+
+        
+
         public Array ContactPartTags => Enum.GetValues(typeof(ContactPartTag));
 
 
         private void OnUnfomarredEnter()
         {
             FormatedContact = new(_parserService.Parse(UnformattedContact));
+        }
+        private void OnSaveEnter()
+        {
+            var contact = _parserService.ToContact([.. FormatedContact]);
+            FormatedContactText = _parserService.ToString(contact);
         }
     }
 }
