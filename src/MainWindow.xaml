@@ -7,9 +7,6 @@
         xmlns:local="clr-namespace:flontact"
         mc:Ignorable="d"
         Title="{Binding Path=WindowTitle}" Height="450" Width="800">
-    <Window.DataContext>
-        <vm:MainWindowViewModel/>
-    </Window.DataContext>
     <StackPanel>
         <TextBox Text="{Binding Path=UnformattedContact}" />
         <Button Command="{Binding Path=UnformattedEnterCommand}">Add Contact</Button>

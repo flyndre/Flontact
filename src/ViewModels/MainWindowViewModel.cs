@@ -1,4 +1,5 @@
-﻿using flontact.Models;
+﻿using flontact.Interfaces;
+using flontact.Models;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections;
@@ -14,6 +15,13 @@ namespace flontact.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        private readonly IParserService _parserService;
+
+        public MainWindowViewModel(IParserService parserService)
+        {
+            _parserService = parserService;
+        }
+
         string _WindowTitle = "Flontact";
         public string WindowTitle
         {
@@ -43,12 +51,7 @@ namespace flontact.ViewModels
 
         private void OnUnfomarredEnter()
         {
-            FormatedContact.Clear();
-            new List<string>(UnformattedContact.Split(" ")).ForEach(contact =>
-            {
-                FormatedContact.Add(new(contact, ContactPartTag.Name));
-            });
-            OnPropertyChanged(nameof(FormatedContact));
+            FormatedContact = new(_parserService.Parse(UnformattedContact));
         }
     }
 }

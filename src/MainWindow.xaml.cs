@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using flontact.ViewModels;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,8 +17,9 @@ namespace flontact
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(MainWindowViewModel viewModel)
         {
+            this.DataContext = viewModel;
             InitializeComponent();
         }
     }
