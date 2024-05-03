@@ -63,15 +63,19 @@ namespace flontact.Services
             switch (contact.Gender)
             {
                 case Gender.Male:
-                    returnString.Append("Sehr geehrter Herr ");
+                    returnString.Append("Sehr geehrter Herr");
                     break;
                 case Gender.Female:
                     returnString.Append("Sehr geehrte Frau");
                     break;
             }
-            contact.Degrees.ForEach(x=> returnString.Append(x.Text+" "));
-            contact.FirstNames.ForEach(x => returnString.Append(x.Text + " "));
-            contact.LastNames.ForEach(x => returnString.Append(x.Text + " "));
+
+            returnString.Append(' ');
+            returnString.AppendJoin(' ', contact.Degrees.Select(x => x.Text));
+            returnString.Append(' ');
+            returnString.AppendJoin(' ', contact.FirstNames.Select(x => x.Text));
+            returnString.Append(' ');
+            returnString.AppendJoin('-', contact.LastNames.Select(x => x.Text));
             return returnString.ToString();
         }
 
