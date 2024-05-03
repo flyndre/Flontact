@@ -1,0 +1,13 @@
+@startuml Design
+skinparam componentStyle rectangle
+skinparam linetype ortho
+
+[UI] as ui
+[Database] as db
+[Parser] as parser
+ui ---> parser : Eingabe
+parser ---> ui : Vorschlag Aufteilung
+ui --> db : überarbeiteter Vorschlag
+parser --> db : nutzt
+
+@enduml
