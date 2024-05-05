@@ -14,6 +14,7 @@ namespace flontact.Services
         private readonly List<string> degrees = ["Dr.", "Prof."];
         private readonly Dictionary<string, Gender> titles = new() { { "Herr", Gender.Male }, { "Frau", Gender.Female } };
         private readonly List<string> fillWords = ["sehr", "geehrter", "geehrte"];
+        private readonly List<string> prefixes = ["von", "de"];
         public IList<ContactPart> Parse(string input)
         {
             var parts = (input.Split(' '));
@@ -85,9 +86,14 @@ namespace flontact.Services
             //remove commas
             stringPart = stringPart.Replace(",", "");
 
+            //try to parse input
             if(fillWords.Contains(stringPart.ToLower()))
             {
                 return new(stringPart, ContactPartTag.NotInteresting);
+            }
+            if(prefixes.Contains(stringPart.ToLower()))
+            {
+                return new(stringPart, ContactPartTag.Name);
             }
             if (degrees.IndexOf(stringPart) != -1)
             {
