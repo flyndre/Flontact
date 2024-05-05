@@ -13,6 +13,7 @@ namespace flontact.Services
     {
         private readonly List<string> degrees = ["Dr.", "Prof."];
         private readonly Dictionary<string, Gender> titles = new() { { "Herr", Gender.Male }, { "Frau", Gender.Female } };
+        private readonly List<string> fillWords = ["sehr", "geehrter", "geehrte"];
         public IList<ContactPart> Parse(string input)
         {
             var parts = (input.Split(' '));
@@ -81,6 +82,10 @@ namespace flontact.Services
 
         private ContactPart ToContactPart(string stringPart)
         {
+            if(fillWords.Contains(stringPart.ToLower()))
+            {
+                return new(stringPart, ContactPartTag.NotInteresting);
+            }
             if (degrees.IndexOf(stringPart) != -1)
             {
                 return new(stringPart, ContactPartTag.Degree);
