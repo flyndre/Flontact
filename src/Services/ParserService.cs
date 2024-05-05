@@ -82,6 +82,9 @@ namespace flontact.Services
 
         private ContactPart ToContactPart(string stringPart)
         {
+            //remove commas
+            stringPart = stringPart.Replace(",", "");
+
             if(fillWords.Contains(stringPart.ToLower()))
             {
                 return new(stringPart, ContactPartTag.NotInteresting);
