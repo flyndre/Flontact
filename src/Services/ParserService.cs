@@ -92,12 +92,12 @@ namespace flontact.Services
             //check for known keywords
             if(fillWords.Contains(stringPart.ToLower()))
             {
-                return new(stringPart, ContactPartTag.NotInteresting);
+                return new(stringPart, ContactPartTag.Salutation);
             }
             if(prefixes.Contains(stringPart.ToLower()))
             {
                 wasPrefix = true;
-                return new(stringPart, ContactPartTag.Name);
+                return new(stringPart, ContactPartTag.Prefix);
             }
             if (degrees.Contains(stringPart))
             {

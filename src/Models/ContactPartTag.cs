@@ -8,7 +8,8 @@ namespace flontact.Models
 {
      public enum ContactPartTag
     {
-        NotInteresting,
+        Salutation,
+        Prefix,
         Degree,
         Title,
         Name,
