@@ -11,10 +11,13 @@ namespace flontact.Services
 {
     public class ParserService : IParserService
     {
-        private readonly List<string> degrees = ["Dr.", "Prof."];
-        private readonly Dictionary<string, Gender> titles = new() { { "Herr", Gender.Male }, { "Frau", Gender.Female } };
-        private readonly List<string> fillWords = ["sehr", "geehrter", "geehrte"];
-        private readonly List<string> prefixes = ["von", "van", "de"];
+        private List<string> degrees = ["Dr.", "Prof."];
+        private Dictionary<string, Gender> titles = new() { { "Herr", Gender.Male }, { "Frau", Gender.Female } };
+        private List<string> fillWords = ["sehr", "geehrter", "geehrte"];
+        private List<string> prefixes = ["von", "van", "de"];
+
+        private List<ContactPart> parsedList = new();
+
         public IList<ContactPart> Parse(string input)
         {
             var parts = (input.Split(' '));
@@ -28,11 +31,32 @@ namespace flontact.Services
             {
                 lastFirstName.Tag = ContactPartTag.Name;
             }
+
+            parsedList = new(returnList);
+
             return returnList;
         }
 
         public Contact ToContact(List<ContactPart> parts)
         {
+            //learn on user corrected input
+            parts.ForEach(part =>
+            {
+                switch(part.Tag)
+                {
+                    case ContactPartTag.NotInteresing:
+                        fillWords.Add(part.Text);
+                        break;
+                    case ContactPartTag.Prefix:
+                        prefixes.Add(part.Text);
+                        break;
+                    case ContactPartTag.Degree:
+                        degrees.Add(part.Text);
+                        break;
+                }
+            });
+
+            //create contact out of list
             var contact = new Contact();
             parts.ForEach(part =>
             {
