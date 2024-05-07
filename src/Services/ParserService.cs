@@ -93,6 +93,11 @@ namespace flontact.Services
                     break;
             }
 
+            if(contact.Degrees.Count > 0)
+            {
+                returnString.Append(' ');
+            }
+
             returnString.AppendJoin(' ', contact.Degrees.Select(x => x.Text));
             returnString.Append(' ');
             returnString.AppendJoin(' ', contact.FirstNames.Select(x => x.Text));
