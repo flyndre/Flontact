@@ -71,5 +71,36 @@ namespace flontact.Services.Tests
             Assert.IsNotNull(contactString);
             Assert.AreEqual("Sehr geehrter Herr Dr. Sandro Gutmensch", contactString);
         }
+
+        //Professor Heinrich Freiherr vom Wald
+        [TestMethod()]
+        public void testProfHeinrichVomWaldParser()
+        {
+            ParserService parser = new ParserService();
+            List<ContactPart> retValues = (List<ContactPart>)parser.Parse("Professor Heinrich Freiherr vom Wald");
+
+            Assert.AreEqual(5, retValues.Count);
+            Assert.AreEqual("Professor", retValues[0].Text);
+            Assert.AreEqual("Heinrich", retValues[1].Text);
+            Assert.AreEqual("Freiherr", retValues[2].Text);
+            Assert.AreEqual("vom", retValues[3].Text);
+            Assert.AreEqual("Wald", retValues[4].Text);
+            Assert.AreEqual(ContactPartTag.Degree, retValues[0].Tag);
+            Assert.AreEqual(ContactPartTag.Firstname, retValues[1].Tag);
+            Assert.AreEqual(ContactPartTag.Prefix, retValues[2].Tag);
+            Assert.AreEqual(ContactPartTag.Prefix, retValues[3].Tag);
+            Assert.AreEqual(ContactPartTag.Name, retValues[4].Tag);
+
+            var contact = parser.ToContact(retValues);
+
+            Assert.IsNotNull(contact);
+            Assert.AreEqual(Gender.Male, contact.Gender);
+            Assert.AreEqual(1, contact.Degrees.Count);
+            Assert.AreEqual(1, contact.FirstNames.Count);
+            Assert.AreEqual(1, contact.LastNames.Count);
+
+            var contactString = parser.ToString(contact);
+            Assert.AreEqual("Sehr geehrter Professor Heinrich Freiherr vom Wald", contactString);
+        }
     }
 }
