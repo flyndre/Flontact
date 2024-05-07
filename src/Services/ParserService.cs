@@ -13,7 +13,6 @@ namespace flontact.Services
     {
         private List<string> degrees = ["Dr.", "Prof."];
         private Dictionary<string, Gender> titles = new() { { "Herr", Gender.Male }, { "Frau", Gender.Female } };
-        private List<string> fillWords = ["sehr", "geehrter", "geehrte"];
         private List<string> prefixes = ["von", "van", "de"];
 
         private List<ContactPart> parsedList = new();
@@ -44,9 +43,6 @@ namespace flontact.Services
             {
                 switch(part.Tag)
                 {
-                    case ContactPartTag.NotInteresing:
-                        fillWords.Add(part.Text);
-                        break;
                     case ContactPartTag.Prefix:
                         prefixes.Add(part.Text);
                         break;
@@ -114,10 +110,6 @@ namespace flontact.Services
             stringPart = stringPart.Replace(",", "");
 
             //check for known keywords
-            if(fillWords.Contains(stringPart.ToLower()))
-            {
-                return new(stringPart, ContactPartTag.Salutation);
-            }
             if(prefixes.Contains(stringPart.ToLower()))
             {
                 wasPrefix = true;
