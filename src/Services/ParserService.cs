@@ -11,7 +11,7 @@ namespace flontact.Services
 {
     public class ParserService : IParserService
     {
-        private List<string> degrees = ["Dr.", "Prof."];
+        private List<string> degrees = ["Dr.", "Prof.", "Professor", "Dipl.", "Ing.", "rer.", "nat.", "h.c.", "mult."];
         private Dictionary<string, Gender> titles = new() { { "Herr", Gender.Male }, { "Frau", Gender.Female } };
         private List<string> prefixes = ["von", "van", "de"];
 
