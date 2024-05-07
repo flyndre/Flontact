@@ -15,17 +15,18 @@ namespace flontact.Services
         private Dictionary<string, Gender> titles = new() { { "Herr", Gender.Male }, { "Frau", Gender.Female } };
         private List<string> prefixes = ["von", "van", "de"];
 
+        private List<ContactPart> returnList = new();
         private List<ContactPart> parsedList = new();
 
         public IList<ContactPart> Parse(string input)
         {
             var parts = (input.Split(' '));
-            var returnList = new List<ContactPart>();
+            returnList = new List<ContactPart>();
             foreach (var part in parts)
             {
                 returnList.Add(ToContactPart(part));
             }
-            var lastFirstName = returnList.FindLast(x => x.Tag.Equals(ContactPartTag.Firstname));
+            var lastFirstName = returnList.Last();
             if(lastFirstName  != null)
             {
                 lastFirstName.Tag = ContactPartTag.Name;
@@ -112,6 +113,10 @@ namespace flontact.Services
             //check for known keywords
             if(prefixes.Contains(stringPart.ToLower()))
             {
+                if(returnList.Last().Tag == ContactPartTag.Name)
+                {
+                    returnList.Last().Tag = ContactPartTag.Firstname;
+                }
                 wasPrefix = true;
                 return new(stringPart, ContactPartTag.Prefix);
             }
