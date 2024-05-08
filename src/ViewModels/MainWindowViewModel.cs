@@ -43,7 +43,10 @@ namespace flontact.ViewModels
         public ObservableCollection<ContactPart> FormatedContact
         {
             get => _FormatedContact;
-            set { _FormatedContact=value; OnPropertyChanged(nameof(FormatedContact));}
+            set { 
+                _FormatedContact=value;
+                SetGender(value);
+                OnPropertyChanged(nameof(FormatedContact));}
         }
         string _FormatedContactText = string.Empty;
         public string FormatedContactText
@@ -55,6 +58,15 @@ namespace flontact.ViewModels
                 OnPropertyChanged(nameof(FormatedContactText));
             }
         }
+        private Gender _Gender = Gender.Neutral;
+        public Gender Gender
+        {
+            get => _Gender;
+            set {
+                _Gender = value;
+                OnPropertyChanged(nameof(Gender));
+            }
+        }
         private RelayCommand? _UnformattedEnterCommand;
         public ICommand UnformattedEnterCommand => _UnformattedEnterCommand ??= new RelayCommand(OnUnfomarredEnter);
         private RelayCommand? _SaveEnterCommand;
@@ -63,16 +75,28 @@ namespace flontact.ViewModels
         
 
         public Array ContactPartTags => Enum.GetValues(typeof(ContactPartTag));
+        public Array Genders => Enum.GetValues(typeof(Gender));
 
 
         private void OnUnfomarredEnter()
-        {
+        {            
             FormatedContact = new(_parserService.Parse(UnformattedContact));
         }
         private void OnSaveEnter()
         {
-            var contact = _parserService.ToContact([.. FormatedContact]);
+            var contact = _parserService.ToContact([.. FormatedContact],Gender);
             FormatedContactText = _parserService.ToString(contact);
+        }
+
+        private void SetGender(ObservableCollection<ContactPart> parts)
+        {
+            foreach (var part in parts)
+            {
+                if (part.Tag.Equals(ContactPartTag.Title))
+                {
+                    Gender = _parserService.GetGender(part.Text);
+                }
+            }
         }
     }
 }

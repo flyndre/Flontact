@@ -51,7 +51,7 @@ namespace flontact.Services
             return returnList;
         }
 
-        public Contact ToContact(List<ContactPart> parts)
+        public Contact ToContact(List<ContactPart> parts,Gender gender)
         {
             //learn on user corrected input
             parts.ForEach(part =>
@@ -83,10 +83,7 @@ namespace flontact.Services
                         contact.LastNames.Add(part);
                         break;
                     case ContactPartTag.Title:
-                        if (titles.TryGetValue(part.Text, out var gender))
-                        {
-                            contact.Gender = gender;
-                        }
+                        contact.Gender = gender;
                         break;
                 }
             });
@@ -156,6 +153,15 @@ namespace flontact.Services
 
             //unable to parse
             return new(stringPart, ContactPartTag.Firstname);
+        }
+
+        public Gender GetGender(string name)
+        {
+            if (titles.TryGetValue(name, out var gender))
+            {
+                return gender;
+            }
+            return Gender.Neutral;
         }
     }
 }
