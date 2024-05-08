@@ -21,28 +21,36 @@ namespace flontact.Services
         public IList<ContactPart> Parse(string input)
         {
             bool reversed = false;
-            if (input.Contains(","))
-            {
-                reversed = true;
-                input = input.Replace(",", "");
-            }
 
             var parts = (input.Split(' '));
             returnList = new List<ContactPart>();
-            foreach (var part in parts)
+            foreach(var part in parts)
             {
-                returnList.Add(ToContactPart(part, reversed));
+                if (part.Contains(","))
+                {
+                    reversed = true;
+                }
+                returnList.Add(ToContactPart(part.Replace(",", "")));
             }
+
             var lastFirstName = returnList.Last();
             if (lastFirstName != null)
             {
-                if (reversed)
+                lastFirstName.Tag = ContactPartTag.Name;
+            }
+
+            if (reversed)
+            {
+                foreach (var part in returnList)
                 {
-                    lastFirstName.Tag = ContactPartTag.Firstname;
-                }
-                else
-                {
-                    lastFirstName.Tag = ContactPartTag.Name;
+                    if(part.Tag == ContactPartTag.Firstname)
+                    {
+                        part.Tag = ContactPartTag.Name;
+                    }
+                    else if (part.Tag == ContactPartTag.Name)
+                    {
+                        part.Tag = ContactPartTag.Firstname;
+                    }
                 }
             }
 
@@ -120,7 +128,7 @@ namespace flontact.Services
         //flags
         private bool wasPrefix = false;
 
-        private ContactPart ToContactPart(string stringPart, bool reverserdOrder)
+        private ContactPart ToContactPart(string stringPart)
         {
             //check for known keywords
             if (prefixes.Contains(stringPart.ToLower()))
