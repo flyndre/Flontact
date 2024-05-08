@@ -22,6 +22,10 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <StackPanel Orientation="Horizontal">
+            <Label>Geschlecht:</Label>
+            <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},Path=DataContext.Genders}" SelectedItem="{Binding Path=Gender}"></ComboBox>
+        </StackPanel>
         <Button Command="{Binding Path=SaveEnterCommand}">Speichern</Button>
         <TextBlock Text="{Binding Path=FormatedContactText}"/>
     </StackPanel>

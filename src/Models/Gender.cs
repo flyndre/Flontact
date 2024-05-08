@@ -10,6 +10,6 @@ namespace flontact.Models
     {
         Male,
         Female,
-        NotSet
+        Neutral
     }
 }

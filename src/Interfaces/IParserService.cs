@@ -13,6 +13,8 @@ namespace flontact.Interfaces
 
         string ToString(Contact contact);
 
-        Contact ToContact(List<ContactPart> parts);
+        Contact ToContact(List<ContactPart> parts,Gender gender);
+
+        Gender GetGender(string name);
     }
 }
