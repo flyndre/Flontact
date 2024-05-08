@@ -20,16 +20,30 @@ namespace flontact.Services
 
         public IList<ContactPart> Parse(string input)
         {
+            bool reversed = false;
+            if (input.Contains(","))
+            {
+                reversed = true;
+                input = input.Replace(",", "");
+            }
+
             var parts = (input.Split(' '));
             returnList = new List<ContactPart>();
             foreach (var part in parts)
             {
-                returnList.Add(ToContactPart(part));
+                returnList.Add(ToContactPart(part, reversed));
             }
             var lastFirstName = returnList.Last();
-            if(lastFirstName  != null)
+            if (lastFirstName != null)
             {
-                lastFirstName.Tag = ContactPartTag.Name;
+                if (reversed)
+                {
+                    lastFirstName.Tag = ContactPartTag.Firstname;
+                }
+                else
+                {
+                    lastFirstName.Tag = ContactPartTag.Name;
+                }
             }
 
             parsedList = new(returnList);
@@ -42,7 +56,7 @@ namespace flontact.Services
             //learn on user corrected input
             parts.ForEach(part =>
             {
-                switch(part.Tag)
+                switch (part.Tag)
                 {
                     case ContactPartTag.Prefix:
                         prefixes.Add(part.Text);
@@ -93,7 +107,7 @@ namespace flontact.Services
                     break;
             }
 
-            if(contact.Degrees.Count > 0)
+            if (contact.Degrees.Count > 0)
             {
                 returnString.Append(' ');
             }
@@ -109,18 +123,19 @@ namespace flontact.Services
         //flags
         private bool wasPrefix = false;
 
-        private ContactPart ToContactPart(string stringPart)
+        private ContactPart ToContactPart(string stringPart, bool reverserdOrder)
         {
-            //remove commas
-            stringPart = stringPart.Replace(",", "");
-
             //check for known keywords
-            if(prefixes.Contains(stringPart.ToLower()))
+            if (prefixes.Contains(stringPart.ToLower()))
             {
-                if(returnList.Last().Tag == ContactPartTag.Name)
+                if(returnList.Count > 0)
                 {
-                    returnList.Last().Tag = ContactPartTag.Firstname;
+                    if (returnList.Last().Tag == ContactPartTag.Name)
+                    {
+                        returnList.Last().Tag = ContactPartTag.Firstname;
+                    }
                 }
+                
                 wasPrefix = true;
                 return new(stringPart, ContactPartTag.Prefix);
             }
@@ -128,9 +143,9 @@ namespace flontact.Services
             {
                 return new(stringPart, ContactPartTag.Degree);
             }
-            if(titles.ContainsKey(stringPart)) 
+            if (titles.ContainsKey(stringPart))
             {
-                return new(stringPart, ContactPartTag.Title); 
+                return new(stringPart, ContactPartTag.Title);
             }
 
             //try to parse based on context
