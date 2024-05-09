@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace flontact.Interfaces
 {
+
+    /*
+     * Interface for the Parser Service. 
+     * 
+     * standardizes the required Parser-Methods and Attributs. With this Interface the Parser can later be easily changed. 
+     * 
+     * Author: Lukas Burkhardt
+     */
     public interface IParserService
     {
         IList<ContactPart> Parse(string input);

@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace flontact.Models
 {
+    /*
+    * Contact-Parts for Saving the actual Element and asigning a Tag (For example Tag: Title, Text: Doktor). 
+    * 
+    * Author: Lukas Burkhardt
+    */
     public class ContactPart
     {
         public string Text { get; set; } = string.Empty;

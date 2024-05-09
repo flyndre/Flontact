@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace flontact.Models
 {
-     public enum ContactPartTag
+    /*
+    * Enum for all Available Tags. 
+    * 
+    * Author: Lukas Burkhardt
+    */
+    public enum ContactPartTag
     {
         Prefix,
         Degree,

@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace flontact.Models
 {
+    /*
+    * Contact-Class for Saving the Contact. 
+    * 
+    * Saves Gender, Degrees, First and Lastname as Lists. 
+    * 
+    * Author: Lukas Burkhardt
+    */
     public class Contact
     {
         public Gender Gender { get; set; } = Gender.Neutral;

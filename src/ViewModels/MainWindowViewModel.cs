@@ -14,6 +14,13 @@ using System.Windows.Input;
 
 namespace flontact.ViewModels
 {
+    /*   
+    *ViewModel of the MainView.
+    *
+    *implements the ViewModelBase
+    * 
+    * Author: Lukas Burkhardt
+    */
     public class MainWindowViewModel : ViewModelBase
     {
         private readonly IParserService _parserService;
@@ -33,13 +40,17 @@ namespace flontact.ViewModels
                 OnPropertyChanged(nameof(WindowTitle));
             }
         }
+
         string _UnformattedContact = string.Empty;
+
         public string UnformattedContact
         {
             get => _UnformattedContact;
             set { _UnformattedContact = value; OnPropertyChanged(nameof(UnformattedContact)); }
         }
+
         ObservableCollection<ContactPart> _FormatedContact = new();
+
         public ObservableCollection<ContactPart> FormatedContact
         {
             get => _FormatedContact;
@@ -48,7 +59,9 @@ namespace flontact.ViewModels
                 SetGender(value);
                 OnPropertyChanged(nameof(FormatedContact));}
         }
+
         string _FormatedContactText = string.Empty;
+
         public string FormatedContactText
         {
             get=> _FormatedContactText;
@@ -58,6 +71,7 @@ namespace flontact.ViewModels
                 OnPropertyChanged(nameof(FormatedContactText));
             }
         }
+
         private Gender _Gender = Gender.Neutral;
         public Gender Gender
         {

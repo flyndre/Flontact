@@ -9,6 +9,13 @@ using System.Windows.Documents;
 
 namespace flontact.Services
 {
+    /*
+    * ParserService for parsing the Names.
+    * 
+    * Implements the IParserService Interface
+    * 
+    * Author: Paul Lehmann
+    */
     public class ParserService : IParserService
     {
         private List<string> degrees = ["Dr.", "Prof.", "Professor", "Dipl.-Ing.", "Dipl.", "Ing.", "rer.", "nat.", "h.c.", "mult."];
@@ -18,6 +25,17 @@ namespace flontact.Services
         private List<ContactPart> returnList = new();
         private List<ContactPart> parsedList = new();
 
+        //flags
+        private bool wasPrefix = false;
+
+        /*
+        * Parses the Input into ContactParts.
+        * 
+        *attribute: input -> Unformatted Input Name
+        *returns: IList<ContactPart> -> A List of the Formatted Names 
+        * 
+        * Author: Paul Lehmann
+        */
         public IList<ContactPart> Parse(string input)
         {
             bool reversed = false;
@@ -59,6 +77,14 @@ namespace flontact.Services
             return returnList;
         }
 
+        /*
+        * Parses the Input into ContactParts.
+        * 
+        *attribute: parts -> Formatted Parts of the Name, gender -> The Gender of the Person
+        *returns: Contact -> The formatted Parts as the Contact-Class
+        * 
+        * Author: Paul Lehmann
+        */
         public Contact ToContact(List<ContactPart> parts,Gender gender)
         {
             //learn on user corrected input
@@ -99,6 +125,14 @@ namespace flontact.Services
 
         }
 
+        /*
+        *generates the Salutation for the given Contact.
+        * 
+        *attribute: contact -> the contact from witch the salutation should be generated
+        *returns: string -> the salutation
+        * 
+        * Author: Paul Lehmann  
+        */
         public string ToString(Contact contact)
         {
             var returnString = new StringBuilder();
@@ -125,9 +159,14 @@ namespace flontact.Services
             return returnString.ToString();
         }
 
-        //flags
-        private bool wasPrefix = false;
-
+        /*
+        *Helper Function to parse a Part of the Name into a ContactPart
+        * 
+        *attribute: stringPart -> a Part of the unformatted Name
+        *returns: ContactPart -> a formatted Part
+        * 
+        * Author: Paul Lehmann  
+        */
         private ContactPart ToContactPart(string stringPart)
         {
             //check for known keywords
@@ -163,6 +202,14 @@ namespace flontact.Services
             return new(stringPart, ContactPartTag.Firstname);
         }
 
+        /*
+        *returns the Gender of a given Name.
+        * 
+        *attribute: name -> the unformatted Name
+        *returns: Gender -> the Gender of the Name
+        * 
+        * Author: Paul Lehmann  
+        */
         public Gender GetGender(string name)
         {
             if (titles.TryGetValue(name, out var gender))
