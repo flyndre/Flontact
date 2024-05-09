@@ -119,6 +119,9 @@ namespace flontact.Services
                     case ContactPartTag.Title:
                         contact.Gender = gender;
                         break;
+                    case ContactPartTag.Prefix:
+                        contact.Prefix.Add(part);
+                        break;
                 }
             });
             return contact;

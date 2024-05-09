@@ -17,6 +17,7 @@ namespace flontact.Models
     {
         public Gender Gender { get; set; } = Gender.Neutral;
         public List<ContactPart> Degrees { get; set; } = [];
+        public List<ContactPart> Prefix { get; set; } = [];
         public List<ContactPart> FirstNames { get; set; } = [];
         public List<ContactPart> LastNames { get; set; } = [];
     }
