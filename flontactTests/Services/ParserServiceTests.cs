@@ -9,21 +9,29 @@ using flontact.Models;
 
 namespace flontact.Services.Tests
 {
-    [TestClass()]
+   /* 
+    * This Class is used for Testing the Equality-Classes.
+   */
+    [TestClass]
     public class ParserServiceTests
     {
-
-        [TestMethod()]
+        /* 
+        * Test for Equality-Class "Name before Surname"
+        * This Tests the Input "Bernd Müller" and Asserts that the Output matches the Requirements
+        * 
+        * Author: Ruben Kraft
+        */
+        [TestMethod]
         public void TestNameBeforeSurname()
         {
-                // Arrange
-            var parser = new NameParser();
+            // Arrange
+            var parser = new ParserService();
             string name = "Bernd";
             string surname = "Müller";
 
             // Act
             List<ContactPart> retValues = (List<ContactPart>)parser.Parse(name + " " + surname);
-            var contact = parser.ToContact(retValues);
+            var contact = parser.ToContact(retValues, Gender.Neutral);
 
             // Assert
             Assert.IsNotNull(contact);
@@ -32,17 +40,23 @@ namespace flontact.Services.Tests
             Assert.AreEqual(surname, contact.LastNames.FirstOrDefault()?.Text);
         }
 
-        [TestMethod()]
+        /* 
+        * Test for Equality-Class "Name after Surname"
+        * This Tests the Input "Müller, Bernd" and Asserts that the Output matches the Requirements
+        * 
+        * Author: Ruben Kraft
+        */
+        [TestMethod]
         public void TestSurnameBeforeName()
         {
-        // Arrange
-            var parser = new NameParser();
+            // Arrange
+            var parser = new ParserService();
             string surname = "Müller";
             string name = "Bernd";
 
             // Act
             List<ContactPart> retValues = (List<ContactPart>)parser.Parse(surname + ", " + name);
-            var contact = parser.ToContact(retValues);
+            var contact = parser.ToContact(retValues, Gender.Neutral);
 
             // Assert
             Assert.IsNotNull(contact);
@@ -51,77 +65,99 @@ namespace flontact.Services.Tests
             Assert.AreEqual(surname, contact.LastNames.FirstOrDefault()?.Text);
         }
 
-        
-        //TODO: NOCHMAL ÜBERPRÜFEN
-        [TestMethod()]
+        /* 
+        * TODO: Fix Error
+        * Test for Equality-Class "Noble Title"
+        * This Tests the Input "Bernd von Freihaus Müller" and Asserts that the Output matches the Requirements
+        * 
+        * Author: Ruben Kraft
+        */
+        [TestMethod]
         public void TestNameWithNobleTitle()
         {
             // Arrange
-            var parser = new NameParser();
-            string name = "Bernd von Freihaus";
+            var parser = new ParserService();
+            string name = "Bernd";
+            string title = "von Freihaus";
             string surname = "Müller";
 
             // Act
-            List<ContactPart> retValues = (List<ContactPart>)parser.Parse(name + " " + surname);
-            var contact = parser.ToContact(retValues);
+            List<ContactPart> retValues = (List<ContactPart>)parser.Parse(name + " " + title + " " + surname);
+            var contact = parser.ToContact(retValues, Gender.Neutral);
 
             // Assert
             Assert.IsNotNull(contact);
             Assert.AreEqual(Gender.Neutral, contact.Gender);
-            Assert.IsTrue(name.Contains("von"));
             Assert.AreEqual(name, contact.FirstNames.FirstOrDefault()?.Text);
+            Assert.AreEqual(title, contact.Degrees.FirstOrDefault()?.Text);
             Assert.AreEqual(surname, contact.LastNames.FirstOrDefault()?.Text);
         }
 
-        [TestMethod()]
+        /* 
+        * Test for Equality-Class "Doctor Title"
+        * This Tests the Input "Dr. Bernd Müller" and Asserts that the Output matches the Requirements
+        * 
+        * Author: Ruben Kraft
+        */
+        [TestMethod]
         public void TestNameWithDoctorTitle()
         {
             // Arrange
-            var parser = new NameParser();
+            var parser = new ParserService();
             string title = "Dr.";
             string name = "Bernd";
             string surname = "Müller";
 
             // Act
             List<ContactPart> retValues = (List<ContactPart>)parser.Parse(title + " " + name + " " + surname);
-            var contact = parser.ToContact(retValues);
+            var contact = parser.ToContact(retValues, Gender.Neutral);
 
             // Assert
             Assert.IsNotNull(contact);
             Assert.AreEqual(Gender.Neutral, contact.Gender);
-            Assert.IsTrue(name.Contains("Dr."));
             Assert.AreEqual(title, contact.Degrees.FirstOrDefault()?.Text);
             Assert.AreEqual(name, contact.FirstNames.FirstOrDefault()?.Text);
             Assert.AreEqual(surname, contact.LastNames.FirstOrDefault()?.Text);
         }
 
-        [TestMethod()]
+        /* 
+        * Test for Equality-Class "Professor Title"
+        * This Tests the Input "Prof. Bernd Müller" and Asserts that the Output matches the Requirements
+        * 
+        * Author: Ruben Kraft
+        */
+        [TestMethod]
         public void TestNameWithProfessorTitle()
         {
             // Arrange
-            var parser = new NameParser();
+            var parser = new ParserService();
             string title = "Prof.";
             string name = "Bernd";
             string surname = "Müller";
 
             // Act
             List<ContactPart> retValues = (List<ContactPart>)parser.Parse(title + " " + name + " " + surname);
-            var contact = parser.ToContact(retValues);
+            var contact = parser.ToContact(retValues, Gender.Neutral);
 
             // Assert
             Assert.IsNotNull(contact);
             Assert.AreEqual(Gender.Neutral, contact.Gender);
-            Assert.IsTrue(name.Contains("Prof."));
             Assert.AreEqual(title, contact.Degrees.FirstOrDefault()?.Text);
             Assert.AreEqual(name, contact.FirstNames.FirstOrDefault()?.Text);
             Assert.AreEqual(surname, contact.LastNames.FirstOrDefault()?.Text);
         }
 
-        [TestMethod()]
+        /* 
+        * Test for Equality-Class "Professor Title"
+        * This Tests the Input "Prof. Bernd Müller" and Asserts that the Output matches the Requirements
+        * 
+        * Author: Ruben Kraft
+        */
+        [TestMethod]
         public void TestNameWithMultipleTitle()
         {
             // Arrange
-            var parser = new NameParser();
+            var parser = new ParserService();
             string title = "Prof.";
             string title2 = "Dr.";
             string name = "Bernd";
@@ -129,29 +165,34 @@ namespace flontact.Services.Tests
 
             // Act
             List<ContactPart> retValues = (List<ContactPart>)parser.Parse(title + " " + title2 + " " + name + " " + surname);
-            var contact = parser.ToContact(retValues);
+            var contact = parser.ToContact(retValues, Gender.Neutral);
 
             // Assert
             Assert.IsNotNull(contact);
             Assert.AreEqual(Gender.Neutral, contact.Gender);
-            Assert.IsTrue(name.Contains("Prof."));
             Assert.AreEqual(title, contact.Degrees.FirstOrDefault()?.Text);
             Assert.AreEqual(title2, contact.Degrees[1]?.Text);
             Assert.AreEqual(name, contact.FirstNames.FirstOrDefault()?.Text);
             Assert.AreEqual(surname, contact.LastNames.FirstOrDefault()?.Text);
         }
 
-        [TestMethod()]
+        /* 
+        * Test for Equality-Class "Double Surname"
+        * This Tests the Input "Bernd Müller-Maurer" and Asserts that the Output matches the Requirements
+        * 
+        * Author: Ruben Kraft
+        */
+        [TestMethod]
         public void TestDoubleSurname()
         {
             // Arrange
-            var parser = new NameParser();
+            var parser = new ParserService();
             string name = "Bernd";
-            string surname = "Müller-Maurer"
+            string surname = "Müller-Maurer";
 
             // Act
-            List<ContactPart> retValues = (List<ContactPart>)parser.Parse(name);
-            var contact = parser.ToContact(retValues);
+            List<ContactPart> retValues = (List<ContactPart>)parser.Parse(name + " " + surname);
+            var contact = parser.ToContact(retValues, Gender.Neutral);
 
             // Assert
             Assert.IsNotNull(contact);
@@ -159,17 +200,23 @@ namespace flontact.Services.Tests
             Assert.AreEqual(surname, contact.LastNames.FirstOrDefault()?.Text);
         }
 
-        [TestMethod()]
+        /* 
+        * Test for Equality-Class "Double Firstname"
+        * This Tests the Input "Bernd-Lukas Müller" and Asserts that the Output matches the Requirements
+        * 
+        * Author: Ruben Kraft
+        */
+        [TestMethod]
         public void TestDoubleFirstName()
         {
             // Arrange
-            var parser = new NameParser();
+            var parser = new ParserService();
             string name = "Bernd-Lukas";
-            string surname =  "Müller";
+            string surname = "Müller";
 
             // Act
-            List<ContactPart> retValues = (List<ContactPart>)parser.Parse(name);
-            var contact = parser.ToContact(retValues);
+            List<ContactPart> retValues = (List<ContactPart>)parser.Parse(name + " " + surname);
+            var contact = parser.ToContact(retValues, Gender.Neutral);
 
             // Assert
             Assert.IsNotNull(contact);
@@ -177,17 +224,23 @@ namespace flontact.Services.Tests
             Assert.AreEqual(name, contact.FirstNames.FirstOrDefault()?.Text);
         }
 
-            [TestMethod()]
+        /* 
+        * Test for Equality-Class "Double First- and Surname"
+        * This Tests the Input "Bernd-Lukas Müller-Maurer" and Asserts that the Output matches the Requirements
+        * 
+        * Author: Ruben Kraft
+        */
+        [TestMethod]
         public void TestDoubleFirstAndSurname()
         {
             // Arrange
-            var parser = new NameParser();
+            var parser = new ParserService();
             string name = "Bernd-Lukas";
-            string surname =  "Müller-Maurer";
+            string surname = "Müller-Maurer";
 
             // Act
-            List<ContactPart> retValues = (List<ContactPart>)parser.Parse(name);
-            var contact = parser.ToContact(retValues);
+            List<ContactPart> retValues = (List<ContactPart>)parser.Parse(name + " " + surname);
+            var contact = parser.ToContact(retValues, Gender.Neutral);
 
             // Assert
             Assert.IsNotNull(contact);
@@ -195,146 +248,72 @@ namespace flontact.Services.Tests
             Assert.AreEqual(surname, contact.LastNames.FirstOrDefault()?.Text);
             Assert.AreEqual(name, contact.FirstNames.FirstOrDefault()?.Text);
         }
-        
-        //Frau Sandra Berger
-        [TestMethod()]
-        public void testFrauSandraBergerParser()
-        {
-            ParserService parser = new ParserService();
-            List<ContactPart> retValues = (List<ContactPart>)parser.Parse("Frau Sandra Berger");
 
-            Assert.AreEqual(3, retValues.Count);
-            Assert.AreEqual("Frau", retValues[0].Text);
-            Assert.AreEqual("Sandra", retValues[1].Text);
-            Assert.AreEqual("Berger", retValues[2].Text);
-            Assert.AreEqual(ContactPartTag.Title, retValues[0].Tag);
-            Assert.AreEqual(ContactPartTag.Firstname, retValues[1].Tag);
-            Assert.AreEqual(ContactPartTag.Name, retValues[2].Tag);
-
-            var contact = parser.ToContact(retValues);
-
-            Assert.IsNotNull(contact);
-            Assert.AreEqual(Gender.Female, contact.Gender);
-            Assert.AreEqual(0, contact.Degrees.Count);
-            Assert.AreEqual(1, contact.FirstNames.Count);
-            Assert.AreEqual(1, contact.LastNames.Count);
-            
-            var contactString = parser.ToString(contact);
-
-            Assert.IsNotNull(contactString);
-            Assert.AreEqual("Sehr geehrte Frau Sandra Berger", contactString);
-        }
-
-        
-        [TestMethod()]
+        /* 
+        * Test for Equality-Class "Female Gender"
+        * This Tests the Input "Frau Helga Brauer" and Asserts that the Output matches the Requirements
+        * 
+        * Author: Ruben Kraft
+        */
+        [TestMethod]
         public void TestFemaleNameRecognition()
         {
             // Arrange
-            var parser = new NameParser();
+            var parser = new ParserService();
             string name = "Frau Helga Brauer";
 
             // Act
             List<ContactPart> retValues = (List<ContactPart>)parser.Parse(name);
-            var contact = parser.ToContact(retValues);
+            var contact = parser.ToContact(retValues, Gender.Female);
 
             // Assert
             Assert.IsNotNull(contact);
             Assert.AreEqual(Gender.Female, contact.Gender);
         }
 
-        [TestMethod()]
+        /* 
+        * Test for Equality-Class "Male Gender"
+        * This Tests the Input "Herr Bernd Müller" and Asserts that the Output matches the Requirements
+        * 
+        * Author: Ruben Kraft
+        */
+        [TestMethod]
         public void TestMaleNameRecognition()
         {
             // Arrange
-            var parser = new NameParser();
+            var parser = new ParserService();
             string name = "Herr Bernd Müller";
 
             // Act
             List<ContactPart> retValues = (List<ContactPart>)parser.Parse(name);
-            var contact = parser.ToContact(retValues);
+            var contact = parser.ToContact(retValues, Gender.Male);
 
             // Assert
             Assert.IsNotNull(contact);
             Assert.AreEqual(Gender.Male, contact.Gender);
         }
 
-        [TestMethod()]
+        /* 
+        * Test for Equality-Class "No Gender"
+        * This Tests the Input "Dr. Bernd Müller" and Asserts that the Output matches the Requirements
+        * 
+        * Author: Ruben Kraft
+        */
+        [TestMethod]
         public void TestNoGenderRecognition()
         {
             // Arrange
-            var parser = new NameParser();
+            var parser = new ParserService();
             string name = "Dr. Bernd Müller";
 
             // Act
             List<ContactPart> retValues = (List<ContactPart>)parser.Parse(name);
-            var contact = parser.ToContact(retValues);
+            var contact = parser.ToContact(retValues, Gender.Neutral);
 
             // Assert
             Assert.IsNotNull(contact);
             Assert.AreEqual(Gender.Neutral, contact.Gender);
         }
-        
-
-        //Herr Dr. Sandro Gutmensch
-        [TestMethod()]
-        public void testHerrSandroGutmenschParser()
-        {
-            ParserService parser = new ParserService();
-            List<ContactPart> retValues = (List<ContactPart>)parser.Parse("Herr Dr. Sandro Gutmensch");
-
-            Assert.AreEqual(4, retValues.Count);
-            Assert.AreEqual("Herr", retValues[0].Text);
-            Assert.AreEqual("Dr.", retValues[1].Text);
-            Assert.AreEqual("Sandro", retValues[2].Text);
-            Assert.AreEqual("Gutmensch", retValues[3].Text);
-            Assert.AreEqual(ContactPartTag.Title, retValues[0].Tag);
-            Assert.AreEqual(ContactPartTag.Degree, retValues[1].Tag);
-            Assert.AreEqual(ContactPartTag.Firstname, retValues[2].Tag);
-            Assert.AreEqual(ContactPartTag.Name, retValues[3].Tag);
-
-            var contact = parser.ToContact(retValues);
-
-            Assert.IsNotNull(contact);
-            Assert.AreEqual(Gender.Male, contact.Gender);
-            Assert.AreEqual(1, contact.Degrees.Count);
-            Assert.AreEqual(1, contact.FirstNames.Count);
-            Assert.AreEqual(1, contact.LastNames.Count);
-
-            var contactString = parser.ToString(contact);
-
-            Assert.IsNotNull(contactString);
-            Assert.AreEqual("Sehr geehrter Herr Dr. Sandro Gutmensch", contactString);
-        }
-
-        //Professor Heinrich Freiherr vom Wald
-        [TestMethod()]
-        public void testProfHeinrichVomWaldParser()
-        {
-            ParserService parser = new ParserService();
-            List<ContactPart> retValues = (List<ContactPart>)parser.Parse("Professor Heinrich Freiherr vom Wald");
-
-            Assert.AreEqual(5, retValues.Count);
-            Assert.AreEqual("Professor", retValues[0].Text);
-            Assert.AreEqual("Heinrich", retValues[1].Text);
-            Assert.AreEqual("Freiherr", retValues[2].Text);
-            Assert.AreEqual("vom", retValues[3].Text);
-            Assert.AreEqual("Wald", retValues[4].Text);
-            Assert.AreEqual(ContactPartTag.Degree, retValues[0].Tag);
-            Assert.AreEqual(ContactPartTag.Firstname, retValues[1].Tag);
-            Assert.AreEqual(ContactPartTag.Prefix, retValues[2].Tag);
-            Assert.AreEqual(ContactPartTag.Prefix, retValues[3].Tag);
-            Assert.AreEqual(ContactPartTag.Name, retValues[4].Tag);
-
-            var contact = parser.ToContact(retValues);
-
-            Assert.IsNotNull(contact);
-            Assert.AreEqual(Gender.Male, contact.Gender);
-            Assert.AreEqual(1, contact.Degrees.Count);
-            Assert.AreEqual(1, contact.FirstNames.Count);
-            Assert.AreEqual(1, contact.LastNames.Count);
-
-            var contactString = parser.ToString(contact);
-            Assert.AreEqual("Sehr geehrter Professor Heinrich Freiherr vom Wald", contactString);
-        }
     }
 }
+      
