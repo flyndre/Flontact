@@ -105,7 +105,7 @@ namespace flontact.Services
                         contact.Gender = gender;
                         break;
                     case ContactPartTag.Prefix:
-                        contact.Prefix.Add(part);
+                        contact.Prefixs.Add(part);
                         break;
                 }
             });
@@ -139,6 +139,8 @@ namespace flontact.Services
             returnString.AppendJoin(' ', contact.Degrees.Select(x => x.Text));
             returnString.Append(' ');
             returnString.AppendJoin(' ', contact.FirstNames.Select(x => x.Text));
+            returnString.Append(' ');
+            returnString.AppendJoin(' ', contact.Prefixs.Select(x => x.Text));
             returnString.Append(' ');
             returnString.AppendJoin('-', contact.LastNames.Select(x => x.Text));
             return returnString.ToString();
