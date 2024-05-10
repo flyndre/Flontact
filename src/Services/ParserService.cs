@@ -14,8 +14,8 @@ namespace flontact.Services
         private List<string> degrees = ["Dr.", "Prof.", "Professor", "Dipl.-Ing.", "Dipl.", "Ing.", "rer.", "nat.", "h.c.", "mult."];
         private Dictionary<string, Gender> titles = new() { { "Herr", Gender.Male }, { "Frau", Gender.Female } };
         private List<string> prefixes = ["von", "van", "de"];
-        private List<ContactPart> returnList = new();
-        private List<ContactPart> parsedList = new();
+        private List<ContactPart> returnList = [];
+        private List<ContactPart> parsedList = [];
         private bool wasPrefix = false;
 
         /// <summary>
