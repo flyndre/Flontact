@@ -1,41 +1,28 @@
 ﻿using flontact.Interfaces;
 using flontact.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
 
 namespace flontact.Services
 {
-    /*
-    * ParserService for parsing the Names.
-    * 
-    * Implements the IParserService Interface
-    * 
-    * Author: Paul Lehmann
-    */
+    /// <summary>
+    /// ParserService for parsing the Names.
+    /// Implements the IParserService Interface.
+    /// Author: Paul Lehmann
+    /// </summary>
     public class ParserService : IParserService
     {
         private List<string> degrees = ["Dr.", "Prof.", "Professor", "Dipl.-Ing.", "Dipl.", "Ing.", "rer.", "nat.", "h.c.", "mult."];
         private Dictionary<string, Gender> titles = new() { { "Herr", Gender.Male }, { "Frau", Gender.Female } };
         private List<string> prefixes = ["von", "van", "de"];
-
-        private List<ContactPart> returnList = new();
-        private List<ContactPart> parsedList = new();
-
-        //flags
+        private List<ContactPart> returnList = [];
+        private List<ContactPart> parsedList = [];
         private bool wasPrefix = false;
 
-        /*
-        * Parses the Input into ContactParts.
-        * 
-        *attribute: input -> Unformatted Input Name
-        *returns: IList<ContactPart> -> A List of the Formatted Names 
-        * 
-        * Author: Paul Lehmann
-        */
+        /// <summary>
+        /// Parses a string into a list of ContactParts. Trys to identify the right ContactPartTag for each part.
+        /// </summary>
+        /// <param name="input">A string containing several parts of a complete salutation.</param>
+        /// <returns>A list of ContactPart each tagged with a possible tag.</returns>
         public IList<ContactPart> Parse(string input)
         {
             bool reversed = false;
@@ -77,14 +64,12 @@ namespace flontact.Services
             return returnList;
         }
 
-        /*
-        * Parses the Input into ContactParts.
-        * 
-        *attribute: parts -> Formatted Parts of the Name, gender -> The Gender of the Person
-        *returns: Contact -> The formatted Parts as the Contact-Class
-        * 
-        * Author: Paul Lehmann
-        */
+        /// <summary>
+        /// Method to generate a Contact out of a list of ContactPart. It uses the tag of each part to bring that part to the right place.
+        /// </summary>
+        /// <param name="parts">List of ContactParts to generate from.</param>
+        /// <param name="gender">The wanted gender of the contact. Can be everyone available.</param>
+        /// <returns>The Contact generated from the parts with the specified gender.</returns>
         public Contact ToContact(List<ContactPart> parts,Gender gender)
         {
             //learn on user corrected input
@@ -128,14 +113,11 @@ namespace flontact.Services
 
         }
 
-        /*
-        *generates the Salutation for the given Contact.
-        * 
-        *attribute: contact -> the contact from witch the salutation should be generated
-        *returns: string -> the salutation
-        * 
-        * Author: Paul Lehmann  
-        */
+        /// <summary>
+        /// Generates a formal form of address out of a given.Contact 
+        /// </summary>
+        /// <param name="contact">The Contact to parse into a string.</param>
+        /// <returns>A string that represents the formal form of address.</returns>
         public string ToString(Contact contact)
         {
             var returnString = new StringBuilder();
@@ -146,6 +128,9 @@ namespace flontact.Services
                     break;
                 case Gender.Female:
                     returnString.Append("Sehr geehrte Frau");
+                    break;
+                case Gender.Neutral:
+                    returnString.Append("Guten Tag");
                     break;
             }
 
@@ -162,14 +147,11 @@ namespace flontact.Services
             return returnString.ToString();
         }
 
-        /*
-        *Helper Function to parse a Part of the Name into a ContactPart
-        * 
-        *attribute: stringPart -> a Part of the unformatted Name
-        *returns: ContactPart -> a formatted Part
-        * 
-        * Author: Paul Lehmann  
-        */
+        /// <summary>
+        /// Helper Method to parse a Part of the Name into a ContactPart
+        /// </summary>
+        /// <param name="stringPart">A part of the unformatted name</param>
+        /// <returns>a formatted Part</returns>
         private ContactPart ToContactPart(string stringPart)
         {
             //check for known keywords
@@ -205,14 +187,11 @@ namespace flontact.Services
             return new(stringPart, ContactPartTag.Firstname);
         }
 
-        /*
-        *returns the Gender of a given Name.
-        * 
-        *attribute: name -> the unformatted Name
-        *returns: Gender -> the Gender of the Name
-        * 
-        * Author: Paul Lehmann  
-        */
+        /// <summary>
+        /// Method to decide which gendet is identified by a title.
+        /// </summary>
+        /// <param name="name">A string containing a title.</param>
+        /// <returns>The gender to the given title. If couldn't determine it's neutral</returns>uthor: Paul Lehmann  
         public Gender GetGender(string name)
         {
             if (titles.TryGetValue(name, out var gender))

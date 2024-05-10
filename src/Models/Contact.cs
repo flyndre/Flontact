@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace flontact.Models
 {
-    /*
-    * Contact-Class for Saving the Contact. 
-    * 
-    * Saves Gender, Degrees, First and Lastname as Lists. 
-    * 
-    * Author: Lukas Burkhardt
-    */
+    /// <summary>
+    /// Contact-Class for Saving the Contact. 
+    /// Saves gender, degrees, first- and lastnames.
+    /// Author: Lukas Burkhardt
+    /// </summary>
     public class Contact
     {
         public Gender Gender { get; set; } = Gender.Neutral;
