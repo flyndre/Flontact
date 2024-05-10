@@ -76,9 +76,9 @@ namespace flontact.Services.Tests
             // Arrange
             var parser = new ParserService();
             string name = "Bernd";
-            string title = "von Freihaus";
+            string title = "von";
             string surname = "Müller";
-            string salutation = "Guten Tag Bernd Müller von Freihaus";
+            string salutation = "Guten Tag Bernd von Müller ";
 
             // Act
             List<ContactPart> retValues = (List<ContactPart>)parser.Parse(name + " " + title + " " + surname);
@@ -91,7 +91,7 @@ namespace flontact.Services.Tests
             Assert.IsNotNull(contact);
             Assert.AreEqual(Gender.Neutral, contact.Gender);
             Assert.AreEqual(name, contact.FirstNames.FirstOrDefault()?.Text);
-            Assert.AreEqual(title, contact.Degrees.FirstOrDefault()?.Text);
+            Assert.AreEqual(title, contact.Prefix.FirstOrDefault()?.Text);
             Assert.AreEqual(surname, contact.LastNames.FirstOrDefault()?.Text);
             Assert.AreEqual(salutation, generatedSalutation);
         }
