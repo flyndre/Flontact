@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace flontact.Models
 {
-    /*
-    * Enum for all Genders. 
-    * 
-    * Author: Lukas Burkhardt
-    */
+    /// <summary>
+    /// Enum for all genders. 
+    /// Author: Lukas Burkhardt
+    /// </summary>
     public enum Gender
     {
         Male,

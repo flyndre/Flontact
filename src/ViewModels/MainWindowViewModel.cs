@@ -14,13 +14,10 @@ using System.Windows.Input;
 
 namespace flontact.ViewModels
 {
-    /*   
-    *ViewModel of the MainView.
-    *
-    *implements the ViewModelBase
-    * 
-    * Author: Lukas Burkhardt
-    */
+    /// <summary>
+    /// ViewModel of the MainView.
+    /// Author: Lukas Burkhardt
+    /// </summary>
     public class MainWindowViewModel : ViewModelBase
     {
         private readonly IParserService _parserService;
@@ -91,17 +88,27 @@ namespace flontact.ViewModels
         public Array ContactPartTags => Enum.GetValues(typeof(ContactPartTag));
         public Array Genders => Enum.GetValues(typeof(Gender));
 
-
+        /// <summary>
+        /// Method to read the content of the input field and start the pasrsing of it.
+        /// </summary>
         private void OnUnfomarredEnter()
         {            
             FormatedContact = new(_parserService.Parse(UnformattedContact));
         }
+
+        /// <summary>
+        /// Method to save the edited parsed input to the database and display the formal form of address.
+        /// </summary>
         private void OnSaveEnter()
         {
             var contact = _parserService.ToContact([.. FormatedContact],Gender);
             FormatedContactText = _parserService.ToString(contact);
         }
 
+        /// <summary>
+        /// Helper method to get the gender out of the salutation. It looks for title tags and then serach for a gender. 
+        /// </summary>
+        /// <param name="parts">A ObservableCollection of ContacParts to determine the gender of.</param>
         private void SetGender(ObservableCollection<ContactPart> parts)
         {
             foreach (var part in parts)
