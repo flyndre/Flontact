@@ -19,7 +19,7 @@ namespace flontact.Services
         private bool wasPrefix = false;
 
         /// <summary>
-        /// Parses a string into a list of Contactparts. Trys to identify the right ContactPartTag for each part.
+        /// Parses a string into a list of ContactParts. Trys to identify the right ContactPartTag for each part.
         /// </summary>
         /// <param name="input">A string containing several parts of a complete salutation.</param>
         /// <returns>A list of ContactPart each tagged with a possible tag.</returns>
@@ -128,6 +128,9 @@ namespace flontact.Services
                     break;
                 case Gender.Female:
                     returnString.Append("Sehr geehrte Frau");
+                    break;
+                case Gender.Neutral:
+                    returnString.Append("Guten Tag");
                     break;
             }
 
