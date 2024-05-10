@@ -1,15 +1,7 @@
 ﻿using flontact.Interfaces;
 using flontact.Models;
 using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO.Packaging;
-using System.Linq;
-using System.Net.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace flontact.ViewModels
@@ -20,12 +12,7 @@ namespace flontact.ViewModels
     /// </summary>
     public class MainWindowViewModel : ViewModelBase
     {
-        private readonly IParserService _parserService;
-
-        public MainWindowViewModel(IParserService parserService)
-        {
-            _parserService = parserService;
-        }
+        #region Properties
 
         string _WindowTitle = "Flontact";
         public string WindowTitle
@@ -39,15 +26,13 @@ namespace flontact.ViewModels
         }
 
         string _UnformattedContact = string.Empty;
-
         public string UnformattedContact
         {
             get => _UnformattedContact;
             set { _UnformattedContact = value; OnPropertyChanged(nameof(UnformattedContact)); }
         }
 
-        ObservableCollection<ContactPart> _FormatedContact = new();
-
+        ObservableCollection<ContactPart> _FormatedContact = [];
         public ObservableCollection<ContactPart> FormatedContact
         {
             get => _FormatedContact;
@@ -58,7 +43,6 @@ namespace flontact.ViewModels
         }
 
         string _FormatedContactText = string.Empty;
-
         public string FormatedContactText
         {
             get=> _FormatedContactText;
@@ -78,16 +62,28 @@ namespace flontact.ViewModels
                 OnPropertyChanged(nameof(Gender));
             }
         }
+
         private RelayCommand? _UnformattedEnterCommand;
         public ICommand UnformattedEnterCommand => _UnformattedEnterCommand ??= new RelayCommand(OnUnfomarredEnter);
+
         private RelayCommand? _SaveEnterCommand;
         public ICommand SaveEnterCommand => _SaveEnterCommand ??= new RelayCommand(OnSaveEnter);
 
-        
+        public static Array ContactPartTags => Enum.GetValues(typeof(ContactPartTag));
+        public static Array Genders => Enum.GetValues(typeof(Gender));
 
-        public Array ContactPartTags => Enum.GetValues(typeof(ContactPartTag));
-        public Array Genders => Enum.GetValues(typeof(Gender));
+        #endregion 
 
+        #region Fields
+        private readonly IParserService _parserService;
+        #endregion 
+
+        public MainWindowViewModel(IParserService parserService)
+        {
+            _parserService = parserService;
+        }
+
+        #region Methods
         /// <summary>
         /// Method to read the content of the input field and start the pasrsing of it.
         /// </summary>
@@ -119,5 +115,6 @@ namespace flontact.ViewModels
                 }
             }
         }
+        #endregion 
     }
 }
