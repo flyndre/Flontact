@@ -68,7 +68,7 @@ namespace flontact.Services.Tests
 
         /// <summary>
         /// Test for equality class "noble title".
-        /// This tests the input "Bernd von Freihaus Müller" and asserts that the output matches the requirements.
+        /// This tests the input "Bernd von Müller" and asserts that the output matches the requirements.
         /// </summary>
         [TestMethod]
         public void TestNameWithNobleTitle()
