@@ -9,18 +9,16 @@ using flontact.Models;
 
 namespace flontact.Services.Tests
 {
-   /* 
-    * This Class is used for Testing the Equality-Classes.
-   */
+    /// <summary>
+    /// This Class is used for Testing the Equality-Classes.
+    /// </summary>
     [TestClass]
     public class ParserServiceTests
     {
-        /* 
-        * Test for Equality-Class "Name before Surname"
-        * This Tests the Input "Bernd Müller" and Asserts that the Output matches the Requirements
-        * 
-        * Author: Ruben Kraft
-        */
+        /// <summary>
+        /// Test for Equality-Class "Name before Surname".
+        /// This Tests the Input "Bernd Müller" and Asserts that the Output matches the Requirements.
+        /// </summary>
         [TestMethod]
         public void TestNameBeforeSurname()
         {
@@ -40,12 +38,11 @@ namespace flontact.Services.Tests
             Assert.AreEqual(surname, contact.LastNames.FirstOrDefault()?.Text);
         }
 
-        /* 
-        * Test for Equality-Class "Name after Surname"
-        * This Tests the Input "Müller, Bernd" and Asserts that the Output matches the Requirements
-        * 
-        * Author: Ruben Kraft
-        */
+
+        /// <summary>
+        /// Test for Equality-Class "Name after Surname".
+        /// This Tests the Input "Müller, Bernd" and Asserts that the Output matches the Requirements.
+        /// </summary>
         [TestMethod]
         public void TestSurnameBeforeName()
         {
@@ -65,13 +62,12 @@ namespace flontact.Services.Tests
             Assert.AreEqual(surname, contact.LastNames.FirstOrDefault()?.Text);
         }
 
-        /* 
-        * TODO: Fix Error
-        * Test for Equality-Class "Noble Title"
-        * This Tests the Input "Bernd von Freihaus Müller" and Asserts that the Output matches the Requirements
-        * 
-        * Author: Ruben Kraft
-        */
+
+        /// <summary>
+        /// TODO: Fix Error
+        /// Test for Equality-Class "Noble Title".
+        /// This Tests the Input "Bernd von Freihaus Müller" and Asserts that the Output matches the Requirements.
+        /// </summary>
         [TestMethod]
         public void TestNameWithNobleTitle()
         {
@@ -93,12 +89,10 @@ namespace flontact.Services.Tests
             Assert.AreEqual(surname, contact.LastNames.FirstOrDefault()?.Text);
         }
 
-        /* 
-        * Test for Equality-Class "Doctor Title"
-        * This Tests the Input "Dr. Bernd Müller" and Asserts that the Output matches the Requirements
-        * 
-        * Author: Ruben Kraft
-        */
+        /// <summary>
+        /// Test for Equality-Class "Doctor Title".
+        /// This Tests the Input "Dr. Bernd Müller" and Asserts that the Output matches the Requirements
+        /// </summary>
         [TestMethod]
         public void TestNameWithDoctorTitle()
         {
@@ -120,12 +114,10 @@ namespace flontact.Services.Tests
             Assert.AreEqual(surname, contact.LastNames.FirstOrDefault()?.Text);
         }
 
-        /* 
-        * Test for Equality-Class "Professor Title"
-        * This Tests the Input "Prof. Bernd Müller" and Asserts that the Output matches the Requirements
-        * 
-        * Author: Ruben Kraft
-        */
+        /// <summary>
+        /// Test for Equality-Class "Professor Title".
+        /// This Tests the Input "Prof. Bernd Müller" and Asserts that the Output matches the Requirements.
+        /// </summary>
         [TestMethod]
         public void TestNameWithProfessorTitle()
         {
@@ -147,12 +139,10 @@ namespace flontact.Services.Tests
             Assert.AreEqual(surname, contact.LastNames.FirstOrDefault()?.Text);
         }
 
-        /* 
-        * Test for Equality-Class "Professor Title"
-        * This Tests the Input "Prof. Bernd Müller" and Asserts that the Output matches the Requirements
-        * 
-        * Author: Ruben Kraft
-        */
+        /// <summary>
+        /// Test for Equality-Class "Professor Title".
+        /// This Tests the Input "Prof. Bernd Müller" and Asserts that the Output matches the Requirements.
+        /// </summary>
         [TestMethod]
         public void TestNameWithMultipleTitle()
         {
@@ -176,12 +166,10 @@ namespace flontact.Services.Tests
             Assert.AreEqual(surname, contact.LastNames.FirstOrDefault()?.Text);
         }
 
-        /* 
-        * Test for Equality-Class "Double Surname"
-        * This Tests the Input "Bernd Müller-Maurer" and Asserts that the Output matches the Requirements
-        * 
-        * Author: Ruben Kraft
-        */
+        /// <summary>
+        /// Test for Equality-Class "Double Surname".
+        /// This Tests the Input "Bernd Müller-Maurer" and Asserts that the Output matches the Requirements.
+        /// </summary>
         [TestMethod]
         public void TestDoubleSurname()
         {
@@ -200,12 +188,11 @@ namespace flontact.Services.Tests
             Assert.AreEqual(surname, contact.LastNames.FirstOrDefault()?.Text);
         }
 
-        /* 
-        * Test for Equality-Class "Double Firstname"
-        * This Tests the Input "Bernd-Lukas Müller" and Asserts that the Output matches the Requirements
-        * 
-        * Author: Ruben Kraft
-        */
+        /// <summary>
+        /// Test for Equality-Class "Double Firstname".
+        /// This Tests the Input "Bernd-Lukas Müller" and Asserts that the Output matches the Requirements.
+        /// 
+        /// </summary>
         [TestMethod]
         public void TestDoubleFirstName()
         {
@@ -224,12 +211,10 @@ namespace flontact.Services.Tests
             Assert.AreEqual(name, contact.FirstNames.FirstOrDefault()?.Text);
         }
 
-        /* 
-        * Test for Equality-Class "Double First- and Surname"
-        * This Tests the Input "Bernd-Lukas Müller-Maurer" and Asserts that the Output matches the Requirements
-        * 
-        * Author: Ruben Kraft
-        */
+        /// <summary>
+        /// Test for Equality-Class "Double First- and Surname".
+        /// This Tests the Input "Bernd-Lukas Müller-Maurer" and Asserts that the Output matches the Requirements.
+        /// </summary>
         [TestMethod]
         public void TestDoubleFirstAndSurname()
         {
@@ -249,12 +234,10 @@ namespace flontact.Services.Tests
             Assert.AreEqual(name, contact.FirstNames.FirstOrDefault()?.Text);
         }
 
-        /* 
-        * Test for Equality-Class "Female Gender"
-        * This Tests the Input "Frau Helga Brauer" and Asserts that the Output matches the Requirements
-        * 
-        * Author: Ruben Kraft
-        */
+        /// <summary>
+        /// Test for Equality-Class "Female Gender".
+        /// This Tests the Input "Frau Helga Brauer" and Asserts that the Output matches the Requirements
+        /// </summary>
         [TestMethod]
         public void TestFemaleNameRecognition()
         {
@@ -271,12 +254,10 @@ namespace flontact.Services.Tests
             Assert.AreEqual(Gender.Female, contact.Gender);
         }
 
-        /* 
-        * Test for Equality-Class "Male Gender"
-        * This Tests the Input "Herr Bernd Müller" and Asserts that the Output matches the Requirements
-        * 
-        * Author: Ruben Kraft
-        */
+        /// <summary>
+        /// Test for Equality-Class "Male Gender".
+        /// This Tests the Input "Herr Bernd Müller" and Asserts that the Output matches the Requirements.
+        /// </summary>
         [TestMethod]
         public void TestMaleNameRecognition()
         {
@@ -293,12 +274,10 @@ namespace flontact.Services.Tests
             Assert.AreEqual(Gender.Male, contact.Gender);
         }
 
-        /* 
-        * Test for Equality-Class "No Gender"
-        * This Tests the Input "Dr. Bernd Müller" and Asserts that the Output matches the Requirements
-        * 
-        * Author: Ruben Kraft
-        */
+        /// <summary>
+        /// Test for Equality-Class "No Gender".
+        /// This Tests the Input "Dr. Bernd Müller" and Asserts that the Output matches the Requirements.
+        /// </summary>
         [TestMethod]
         public void TestNoGenderRecognition()
         {
