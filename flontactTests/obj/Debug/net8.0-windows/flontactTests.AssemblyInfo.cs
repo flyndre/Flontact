@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("flontactTests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+52cb36b213136aa88c0795a2e0a90cb5a6a95831")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d4c1b0ab230da7348447c589a1a413841eb32e6")]
 [assembly: System.Reflection.AssemblyProductAttribute("flontactTests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("flontactTests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

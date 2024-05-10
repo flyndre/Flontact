@@ -8,13 +8,10 @@ using System.Threading.Tasks;
 
 namespace flontact.ViewModels
 {
-    /*   
-    *BaseViewModell.
-    *
-    *implements the INotifyPropertyChanged Interface
-    * 
-    * Author: Lukas Burkhardt
-    */
+    /// <summary>
+    /// BaseViewModell to provide base functionality to all view models.
+    /// Author: Lukas Burkhardt
+    /// </summary>
     public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
