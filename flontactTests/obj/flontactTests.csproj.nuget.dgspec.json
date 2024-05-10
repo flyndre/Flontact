@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Github\\Flontact\\flontactTests\\flontactTests.csproj": {}
+    "D:\\Data\\repos\\flontact\\flontactTests\\flontactTests.csproj": {}
   },
   "projects": {
-    "D:\\Github\\Flontact\\flontactTests\\flontactTests.csproj": {
+    "D:\\Data\\repos\\flontact\\flontactTests\\flontactTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Github\\Flontact\\flontactTests\\flontactTests.csproj",
+        "projectUniqueName": "D:\\Data\\repos\\flontact\\flontactTests\\flontactTests.csproj",
         "projectName": "flontactTests",
-        "projectPath": "D:\\Github\\Flontact\\flontactTests\\flontactTests.csproj",
-        "packagesPath": "C:\\Users\\ykont\\.nuget\\packages\\",
-        "outputPath": "D:\\Github\\Flontact\\flontactTests\\obj\\",
+        "projectPath": "D:\\Data\\repos\\flontact\\flontactTests\\flontactTests.csproj",
+        "packagesPath": "C:\\Users\\Lukas\\.nuget\\packages\\",
+        "outputPath": "D:\\Data\\repos\\flontact\\flontactTests\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ykont\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Lukas\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -32,8 +28,8 @@
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "D:\\Github\\Flontact\\src\\flontact.csproj": {
-                "projectPath": "D:\\Github\\Flontact\\src\\flontact.csproj"
+              "D:\\Data\\repos\\flontact\\src\\flontact.csproj": {
+                "projectPath": "D:\\Data\\repos\\flontact\\src\\flontact.csproj"
               }
             }
           }
@@ -42,11 +38,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -86,25 +77,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Github\\Flontact\\src\\flontact.csproj": {
+    "D:\\Data\\repos\\flontact\\src\\flontact.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Github\\Flontact\\src\\flontact.csproj",
+        "projectUniqueName": "D:\\Data\\repos\\flontact\\src\\flontact.csproj",
         "projectName": "flontact",
-        "projectPath": "D:\\Github\\Flontact\\src\\flontact.csproj",
-        "packagesPath": "C:\\Users\\ykont\\.nuget\\packages\\",
-        "outputPath": "D:\\Github\\Flontact\\src\\obj\\",
+        "projectPath": "D:\\Data\\repos\\flontact\\src\\flontact.csproj",
+        "packagesPath": "C:\\Users\\Lukas\\.nuget\\packages\\",
+        "outputPath": "D:\\Data\\repos\\flontact\\src\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ykont\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Lukas\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -124,11 +111,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -179,7 +161,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
